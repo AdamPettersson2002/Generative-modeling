@@ -1,0 +1,34 @@
+inherits: configs/replication/base.yaml
+
+project:
+  experiment_name: dqn_all_forecasts
+
+environment:
+  observation_columns:
+    - soc
+    - current_price
+    - price_forecasts
+  forecast_horizons_hours:
+    - 1
+    - 2
+    - 3
+    - 6
+    - 12
+    - 18
+    - 24
+
+forecasting:
+  model_families:
+    - lstm
+    - cnn
+    - cnn_lstm
+    - attention_lstm
+    - arima
+    - persistence
+  input_features:
+    - price
+    - demand
+    - hour_sin
+    - hour_cos
+  scaling: minmax_minus_one_to_one
+  selection_metric: rmse

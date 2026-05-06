@@ -1,0 +1,28 @@
+inherits: configs/replication/with_forecasts.yaml
+
+project:
+  experiment_name: sb3_nominal_with_cbf_filter
+
+safety_filter:
+  type: cbf
+  filter_location: action_wrapper
+  nominal_policy_source: outputs/checkpoints
+  alpha: 1.0
+  projection: closed_form_1d
+  constraints:
+    - soc_lower_bound
+    - soc_upper_bound
+    - charge_power_limit
+    - discharge_power_limit
+
+evaluation:
+  compare_against:
+    - paper_hard_clip
+    - no_filter
+  metrics:
+    - accumulated_reward
+    - grid_revenue
+    - degradation_cost
+    - charge_discharge_events
+    - nominal_action_adjustment
+    - soc_violations

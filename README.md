@@ -4,5 +4,6 @@ This repository is a collection of my implementations and experiments with vario
 ## Current Implementations
 * **Variational Autoencoder (VAE):** Implementation of a standard VAE.
 * **Importance Weighted Autoencoder (IWAE):** An extension of the VAE that uses multiple samples to form a tighter lower bound on the marginal likelihood.
+* **Energy Arbitrage with RL and TSA:** Enhancing battery storage energy arbitrage with deep reinforcement learning and time-series forecasting.
 
 *More models will be added in the future.*

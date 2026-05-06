@@ -1,0 +1,46 @@
+project:
+  seed: 42
+  experiment_name: dqn_basic_no_forecasts
+
+data:
+  price_source: aeso
+  weather_source: era5
+  timestep_hours: 1
+  raw_dir: data/raw
+  processed_dir: data/processed
+
+battery:
+  capacity_mwh: 10.0
+  min_soc: 0.2
+  max_soc: 0.8
+  charge_limit_mw: -2.5
+  discharge_limit_mw: 2.5
+  charge_efficiency: 0.92
+  discharge_efficiency: 1.0
+  self_discharge: 0.0
+  peukert_constant: 1.14
+  cycles_to_failure: 6000
+  investment_cost_per_mwh: 300000
+
+environment:
+  observation_columns:
+    - soc
+    - current_price
+  forecast_horizons_hours: []
+  safety_layer: paper_hard_clip
+  episode_length_hours: 8760
+
+agent:
+  algorithm: dqn
+  total_timesteps: 100000
+  policy: MlpPolicy
+  gamma: 0.99
+
+evaluation:
+  n_seeds: 5
+  metrics:
+    - accumulated_reward
+    - grid_revenue
+    - degradation_cost
+    - charge_discharge_events
+    - soc_violations
